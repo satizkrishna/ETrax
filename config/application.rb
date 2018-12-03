@@ -24,8 +24,16 @@ module ETrax
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+	
+	# Don't generate system files.
+	config.generators do |generate|
+	  generate.helper false
+	  generate.assets false
+	  generate.view_specs false
+	  generate.helper_specs false
+	  generate.routing_specs false
+	  generate.controller_specs false
+	end
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
   end
 end

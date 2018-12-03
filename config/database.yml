@@ -19,14 +19,14 @@ default: &default
 
 development:
   <<: *default
-  database: ETrax_development
+  database: e_trax_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
+test: &test
   <<: *default
-  database: ETrax_test
+  database: e_trax_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,9 @@ test:
 #
 production:
   <<: *default
-  database: ETrax_production
+  database: e_trax
   username: ETrax
   password: <%= ENV['ETRAX_DATABASE_PASSWORD'] %>
+
+cucumber:
+  <<: *test

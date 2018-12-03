@@ -34,8 +34,14 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'factory_bot'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'coveralls', require: false
 end
 
 group :development do
