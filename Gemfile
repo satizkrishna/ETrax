@@ -33,6 +33,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# For Authentication
+gem 'devise'
+gem 'devise-token_authenticatable'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
