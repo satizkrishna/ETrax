@@ -10,7 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181203203430) do
+ActiveRecord::Schema.define(version: 20181203220057) do
+
+  create_table "expense_cycles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "owner_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "type", null: false
+    t.datetime "starts_at"
+    t.datetime "expires_at"
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type", "owner_id", "is_active"], name: "exp_cyc_actv_idx"
+    t.index ["type", "owner_id"], name: "index_expense_cycles_on_type_and_owner_id"
+  end
+
+  create_table "expense_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id", null: false
+    t.integer "funds", null: false
+    t.integer "starts_at_day", null: false
+    t.boolean "can_alert", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_expense_profiles_on_user_id"
+  end
+
+  create_table "expense_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "creator_id"
+    t.string "title", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_expense_types_on_creator_id"
+  end
+
+  create_table "expenses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "type", null: false
+    t.integer "owner_id", null: false
+    t.integer "parent_id"
+    t.integer "expense_cycle_id", null: false
+    t.string "expense_cycle_type", null: false
+    t.integer "spends", default: 0
+    t.integer "expense_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type", "expense_cycle_id", "expense_cycle_type"], name: "exp_cyc_poly_idx"
+    t.index ["type", "owner_id"], name: "index_expenses_on_type_and_owner_id"
+    t.index ["type", "parent_id"], name: "index_expenses_on_type_and_parent_id"
+  end
+
+  create_table "participants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "participant_id", null: false
+    t.integer "shared_expense_cycle_id", null: false
+    t.index ["participant_id", "shared_expense_cycle_id"], name: "patcp_main_map_idx"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -20,6 +74,8 @@ ActiveRecord::Schema.define(version: 20181203203430) do
     t.datetime "remember_created_at"
     t.text "authentication_token"
     t.datetime "authentication_token_created_at"
+    t.datetime "last_alert_sent_at"
+    t.datetime "last_visit_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, length: { authentication_token: 10 }

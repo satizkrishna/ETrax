@@ -18,6 +18,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.text :authentication_token
       t.datetime :authentication_token_created_at
 
+      t.datetime :last_alert_sent_at
+      t.datetime :last_visit_at
+
       t.timestamps null: false
     end
 

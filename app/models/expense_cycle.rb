@@ -1,0 +1,2 @@
+class ExpenseCycle < ApplicationRecord
+end
