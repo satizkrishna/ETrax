@@ -40,7 +40,8 @@ gem 'devise-token_authenticatable'
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'pry'
   gem 'pry-byebug'
   gem 'cucumber-rails', require: false

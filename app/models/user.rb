@@ -6,5 +6,9 @@ class User < ApplicationRecord
 
   has_one :expense_profile
   has_many :my_expense_types, class_name: :ExpenseType, foreign_key: :creator_id
+
+  validates :uname, :email, presence: true
+  validates :email, uniqueness: true
+
   
 end
