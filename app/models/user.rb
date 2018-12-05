@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_many :monthly_expense_cycles, class_name: "ExpenseCycle::MainExpenseCycle", foreign_key: :owner_id
   has_and_belongs_to_many :shared_expense_cycles, class_name: "ExpenseCycle::SharedExpenseCycle", join_table: :participants, foreign_key: :participant_id
 
-  validates :uname, :email, :password, presence: true
-  validates :email, uniqueness: true
-
+  validates :password, presence: true
+  validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
+  validates :uname, presence: true, alpha_numeric_format: true
   
 end
