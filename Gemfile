@@ -37,6 +37,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'devise-token_authenticatable'
 
+# GraphQL
+gem 'graphql'
+gem 'graphiql-rails', group: :development
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
@@ -48,6 +52,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'coveralls', require: false
   gem 'rails-controller-testing'
+  gem 'rspec-graphql_matchers'
 end
 
 group :development do
@@ -61,3 +66,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
