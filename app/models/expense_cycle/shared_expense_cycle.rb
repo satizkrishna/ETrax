@@ -26,6 +26,12 @@ class ExpenseCycle::SharedExpenseCycle < ExpenseCycle
 		}
 	end
 
+	def add_expense_for_user(user,params = {})
+		participant_ids = (params[:participants].pluck(:user_id) + [params[:paid_by][:user_id]]).uniq
+		raise "Users with ids #{(participant_ids - participants.where(participant_id: participant_ids)).join(',')} not part of the cycle!!!" if (participant_ids - participants.where(participant_id: participant_ids).pluck(:participant_id)).count > 0
+		Expense::RecoverableExpense.create_for_user(user,params)
+	end
+
 	def get_shares_for(user)
 		dues = ActiveRecord::Base.connection.execute "SELECT recvr_exp.owner_id , sum(expenses.expected_spends) - sum(expenses.recovered_spends) due FROM `expenses` inner join expenses as recvr_exp on recvr_exp.type = 'Expense::RecoverableExpense' and expenses.parent_id = recvr_exp.id WHERE `expenses`.`type` IN ('Expense::PendingExpense') AND `expenses`.`owner_id` = #{user.id} AND `expenses`.`cycle_id` = #{id} GROUP BY recvr_exp.owner_id having due > 0"
 		owes = ActiveRecord::Base.connection.execute "SELECT pndg_exp.owner_id , sum(pndg_exp.expected_spends) - sum(pndg_exp.recovered_spends) owe FROM `expenses` inner join expenses as pndg_exp on pndg_exp.type = 'Expense::PendingExpense' and expenses.id = pndg_exp.parent_id WHERE `expenses`.`type` IN ('Expense::RecoverableExpense') AND `expenses`.`owner_id` = #{user.id} AND `expenses`.`cycle_id` = #{id} GROUP BY pndg_exp.owner_id having owe > 0"

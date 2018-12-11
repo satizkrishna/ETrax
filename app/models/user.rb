@@ -46,6 +46,37 @@ class User < ApplicationRecord
   def get_my_expense_types
     ExpenseType.for_user(self)
   end
+
+  def add_current_expense(params = {})
+    ExpenseCycle::MainExpenseCycle.get_current(self).add_expense(self,params)
+  end
+
+  def update_current_expense(params = {})
+    ExpenseCycle::MainExpenseCycle.expenses_for_user(self).find(params[:expense_id]).update_attribute(:total_spends,params[:spends])
+  end
+
+  def delete_current_expense(params = {})
+    ExpenseCycle::MainExpenseCycle.expenses_for_user(self).find(params[:expense_id]).delete
+  end
+
+  def create_shared_cycle(params = {})
+    ExpenseCycle::SharedExpenseCycle.create_for_user(self,params)
+  end
+
+  def add_shared_expense(params = {})
+    ExpenseCycle::SharedExpenseCycle.find(params[:cycle_id]).add_expense_for_user(self,params)
+  end
+
+  def update_shared_expense(params = {})
+    Expense::PendingExpense.where(:owner_id => id).find(params[:expense_id]).update_spends(params)
+  end
+
+  def delete_shared_expense(params = {})
+    Expense::RecoverableExpense.where(:owner_id => id).find(params[:expense_id]).delete
+  end
+
+  def update_expense_profile(params = {})
+    expense_profile.update_attributes(params.slice(:funds, :starts_at_day, :can_alert))
   end
   
 end
