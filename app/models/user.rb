@@ -7,8 +7,14 @@ class User < ApplicationRecord
   has_one :expense_profile
   has_many :my_expense_types, class_name: :ExpenseType, foreign_key: :creator_id
 
+  has_many :monthly_expenses, foreign_key: :owner_id, class_name: "Expense::ForwardExpense"
+  has_many :recoverable_expenses, foreign_key: :owner_id, class_name: "Expense::RecoverableExpense"
+  has_many :pending_expenses, foreign_key: :owner_id, class_name: "Expense::PendingExpense"
   has_many :monthly_expense_cycles, class_name: "ExpenseCycle::MainExpenseCycle", foreign_key: :owner_id
-  has_and_belongs_to_many :shared_expense_cycles, class_name: "ExpenseCycle::SharedExpenseCycle", join_table: :participants, foreign_key: :participant_id
+  has_many :participants, foreign_key: :participant_id
+  has_many :shared_expense_cycles, lambda {
+    where(type: 'ExpenseCycle::SharedExpenseCycle')
+  }, through: :participants, source: :cycle
 
   validates :password, presence: true
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP } 

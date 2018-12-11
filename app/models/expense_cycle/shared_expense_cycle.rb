@@ -1,5 +1,9 @@
 class ExpenseCycle::SharedExpenseCycle < ExpenseCycle
 
-	has_many :expenses, as: :expense_cycle	
-	has_and_belongs_to_many :participants, class_name: :User, join_table: :participants, foreign_key: :shared_expense_cycle_id
+	has_many :expenses, as: :cycle	
+	has_many :participants, foreign_key: :cycle_id
+	has_many :participating_users, class_name: :User, through: :participants, source: :user
+
+	validates :title, presence: true
+	validates :owner_id, presence: true
 end
