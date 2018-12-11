@@ -20,30 +20,32 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP } 
   validates :uname, presence: true, alpha_numeric_format: true
 
+
   after_create :add_expense_profile, :setup_monthly_cycle
-  
+    
   def add_expense_profile
-    # ExpenseProfile.create_for_user(self)
+    ExpenseProfile.create_for_user(self)
   end
 
   def setup_monthly_cycle
-    # ExpenseCycle::MainExpenseCycle.setup_for_user(self)
+    ExpenseCycle::MainExpenseCycle.setup_for_user(self)
   end
 
   def get_current_cycle
-    # ExpenseCycle::MainExpenseCycle.get_current(self)
+    ExpenseCycle::MainExpenseCycle.get_current(self)
   end
 
   def get_past_cycles(options = {})
-    # ExpenseCycle::MainExpenseCycle.get_all_cycles(self,options)
+    ExpenseCycle::MainExpenseCycle.get_all_cycles(self,options)
   end
 
-  def get_shared_cycles
-    # ExpenseCycle::SharedExpenseCycle.get_all_cycles(self)
+  def get_shared_cycles(options = {})
+    ExpenseCycle::SharedExpenseCycle.get_all_cycles(self,options)
   end
 
   def get_my_expense_types
-    # ExpenseType.for_user(self)
+    ExpenseType.for_user(self)
+  end
   end
   
 end
