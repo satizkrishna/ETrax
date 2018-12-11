@@ -1,4 +1,4 @@
 class ETraxSchema < GraphQL::Schema
-  mutation(Types::MutationType)
-  query(Types::QueryType)
+  mutation(GqlMutation)
+  query(Query)
 end
