@@ -7,9 +7,9 @@ class CreateExpenseTypes < ActiveRecord::Migration[5.1]
     	t.integer :creator_id
     	
     	t.string :title, null: false
-    	t.text :description, null: false
+    	t.text :description
 		
-		t.timestamps null: false
+		  t.timestamps null: false
     end
 
     add_index :expense_types, :creator_id

@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20181203220057) do
     t.string "type", null: false
     t.datetime "starts_at"
     t.datetime "expires_at"
+    t.float "spends", limit: 24
     t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -28,9 +29,9 @@ ActiveRecord::Schema.define(version: 20181203220057) do
 
   create_table "expense_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id", null: false
-    t.integer "funds", null: false
-    t.integer "starts_at_day", null: false
-    t.boolean "can_alert", null: false
+    t.float "funds", limit: 24, default: 0.0
+    t.integer "starts_at_day", default: 1
+    t.boolean "can_alert", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_expense_profiles_on_user_id"
@@ -39,7 +40,7 @@ ActiveRecord::Schema.define(version: 20181203220057) do
   create_table "expense_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "creator_id"
     t.string "title", null: false
-    t.text "description", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_expense_types_on_creator_id"
@@ -47,23 +48,29 @@ ActiveRecord::Schema.define(version: 20181203220057) do
 
   create_table "expenses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "type", null: false
+    t.string "title", null: false
+    t.text "description"
     t.integer "owner_id", null: false
     t.integer "parent_id"
-    t.integer "expense_cycle_id", null: false
-    t.string "expense_cycle_type", null: false
-    t.integer "spends", default: 0
+    t.integer "cycle_id", null: false
+    t.string "cycle_type", null: false
+    t.float "total_spends", limit: 24, default: 0.0
+    t.float "expected_spends", limit: 24, default: 0.0
+    t.float "recovered_spends", limit: 24, default: 0.0
     t.integer "expense_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["type", "expense_cycle_id", "expense_cycle_type"], name: "exp_cyc_poly_idx"
+    t.index ["type", "cycle_id", "cycle_type"], name: "exp_cyc_poly_idx"
     t.index ["type", "owner_id"], name: "index_expenses_on_type_and_owner_id"
     t.index ["type", "parent_id"], name: "index_expenses_on_type_and_parent_id"
   end
 
-  create_table "participants", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "participants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "participant_id", null: false
-    t.integer "shared_expense_cycle_id", null: false
-    t.index ["participant_id", "shared_expense_cycle_id"], name: "patcp_main_map_idx"
+    t.integer "cycle_id", null: false
+    t.float "total_due", limit: 24, default: 0.0
+    t.float "total_owe", limit: 24, default: 0.0
+    t.index ["participant_id", "cycle_id"], name: "patcp_main_map_idx"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
