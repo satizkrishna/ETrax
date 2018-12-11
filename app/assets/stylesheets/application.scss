@@ -15,6 +15,16 @@ input[type="button"]::-moz-focus-inner {
 
 .main-menu-item{
 	margin-right: 20px !important;
+  color: rgba(255, 255, 255, 1.0) !important; 
+}
+
+.nav-link{
+ color: rgba(255, 255, 255, 1.0) !important;  
+}
+
+.navbar-toggler{
+  outline:none !important;
+  border: 0 !important;
 }
 
 .navbar-side {
