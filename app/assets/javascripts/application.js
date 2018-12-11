@@ -12,4 +12,13 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery3
+//= require popper
+//= require home_page
+//= require monthly_cycle
+//= require shared_cycle
+//= require expense_profile
+//= require about
+//= require app_routes
 //= require_tree .
+//= require bootstrap-sprockets
