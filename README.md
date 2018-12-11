@@ -1,2 +1,2 @@
 # ETrax
-A simple Expense Tracker app using Rails - React - GraphQL 
+A simple Expense Tracker app using Rails - GraphQL 
