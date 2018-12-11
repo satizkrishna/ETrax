@@ -14,4 +14,18 @@ RSpec.describe ExpenseProfile, type: :model do
 		it { should validate_numericality_of(:starts_at_day) }
 		it { should validate_numericality_of(:funds) }
 	end
+
+	context "has proper associations" do
+		it { should belong_to(:user) }
+	end
+
+	context "has proper values, when created with proper values," do		
+		it { expect(@expense_profile).to_not be(nil) }
+		it { expect(@user).to be_valid }
+	end
+
+	context "has no corrupted data, when created with corrupted values," do
+		it { expect(@expense_profile_overflow).to be_invalid }
+		it { expect(@expense_profile_negative).to be_invalid }
+	end
 end
