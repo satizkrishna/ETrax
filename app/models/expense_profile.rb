@@ -4,7 +4,7 @@ class ExpenseProfile < ApplicationRecord
 	validates :funds, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
 	def self.create_for_user(user)
-		create(:user_id => user.id)
+		self.create(:user => user)
 	end
 
 	def get_expires_at_from_now

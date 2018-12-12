@@ -6,9 +6,9 @@
           &#9776;
         </button>
       </li>
-      <li class='nav-item main-menu-item'><%= link_to 'Home', "#home", class: 'nav-link' , onclick: "Router.handlePath(this)"%></li>
-      <li class='nav-item main-menu-item'><%= link_to 'Monthly Cycle', "#monthly_cycle", class: 'nav-link' ,onclick: "Router.handlePath(this)"%></li>
-      <li class='nav-item main-menu-item'><%= link_to 'Groups', "#shared_cycle", class: 'nav-link',onclick: "Router.handlePath(this)" %></li>
+      <li class='nav-item main-menu-item'><%= link_to 'Home', "#home", class: 'nav-link' , onclick: "return Router.handlePath(this)"%></li>
+      <li class='nav-item main-menu-item'><%= link_to 'Monthly Cycle', "#monthly_cycle", class: 'nav-link' ,onclick: "return Router.handlePath(this)"%></li>
+      <li class='nav-item main-menu-item'><%= link_to 'Groups', "#shared_cycle", class: 'nav-link',onclick: "return Router.handlePath(this)" %></li>
     </ul>
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
       <p class="navbar-brand">E-Trax</p>

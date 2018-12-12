@@ -35,5 +35,18 @@ module ETrax
 	  generate.controller_specs false
 	end
 
+	config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
+
+    config.action_dispatch.default_headers = {
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Request-Method' => 'GET, POST, OPTIONS'
+    }
+
+
   end
 end

@@ -12,7 +12,7 @@ class CreateExpenseCycles < ActiveRecord::Migration[5.1]
     	t.datetime :starts_at
     	t.datetime :expires_at
 
-    	t.float :spends
+    	t.float :spends, default: 0
 
         t.boolean :is_active, default: true
 

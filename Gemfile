@@ -43,6 +43,9 @@ gem 'devise-token_authenticatable'
 gem 'graphql'
 gem 'graphiql-rails', group: :development
 
+
+gem 'rack-cors', require: 'rack/cors'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
