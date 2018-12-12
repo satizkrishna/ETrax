@@ -1,0 +1,19 @@
+<%# navigation styled for Bootstrap 4.0 %>
+  <nav class="navbar navbg-custom-bg">
+    <ul class="nav navbar-nav clearfix flex-row">
+      <li class="nav-item main-menu-item">
+        <button class="navbar-toggler hidden-sm-up nav-link main-btn" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+          &#9776;
+        </button>
+      </li>
+      <li class='nav-item main-menu-item'><%= link_to 'Home', "#home", class: 'nav-link' , onclick: "return Router.handlePath(this)"%></li>
+      <li class='nav-item main-menu-item'><%= link_to 'Monthly Cycle', "#monthly_cycles", class: 'nav-link' ,onclick: "return Router.handlePath(this)"%></li>
+      <li class='nav-item main-menu-item'><%= link_to 'Groups', "#shared_cycles", class: 'nav-link',onclick: "return Router.handlePath(this)" %></li>
+    </ul>
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+      <p class="navbar-brand">E-Trax</p>
+      <ul class="nav navbar-nav">
+        <%= render 'layouts/navigation_links' %>
+      </ul>
+    </div>
+  </nav>
