@@ -1,4 +1,4 @@
-class @MonthlyCycles
+class @MonthlyCycles extends StaticPageHandler
 	@content = "Oops!!! Nothing here!!!"
 	@query = "{ \nuser { \ncurrent_cycle { \nid \ntitle \ndescription \ntotal_spend \nexpenses { \nspends \ndescription \ntitle \nid \n} \n} \npast_cycles { \nid \ntitle \ndescription \ntotal_spend \nexpenses { \nspends \ndescription \ntitle \nid \n} \n} \n} \n} \n"
 	
@@ -21,32 +21,7 @@ class @MonthlyCycles
 		console.log reqData
 		cyclesListHtml = MonthlyCycles.getCycleList(reqData)
 		pageContent = '<div class="container"><div class="row"><div class="col"><div class="my-5"><ul class="list-group list-group-flush">' + cyclesListHtml + '</ul></div></div></div></div>'
-		MonthlyCycles.content = pageContent if pageContent?
-		MonthlyCycles.render()
-	
-	
-	@fetchAndGenerateContent: (query,callback) ->
-		responseData = null
-		token = (xhr) ->
-			xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
-			return
-		$.ajax
-			method: 'post'
-			url: 'http://localhost:3000/graphql?'
-			data: JSON.stringify({query: query})
-			beforeSend: token,
-			headers:
-				'Content-Type': 'application/json'
-				'X-CSRF-Token': xcsrf
-			success: (data) ->
-				callback(data)
-			error: (err) ->
-				throw err
-				return false
-	
+		super(pageContent) if pageContent?
+
 	@handle: (params = []) ->
 		MonthlyCycles.fetchAndGenerateContent(@query,MonthlyCycles.generateContent)
-	
-	@render: ->
-		mainDiv = document.getElementById('main-body')
-		mainDiv.innerHTML = MonthlyCycles.content

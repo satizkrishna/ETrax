@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery3
 //= require popper
+//= require static_page_handler
 //= require home_page
 //= require monthly_cycles
 //= require monthly_cycle
