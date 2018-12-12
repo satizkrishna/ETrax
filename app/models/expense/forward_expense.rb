@@ -9,6 +9,7 @@ class Expense::ForwardExpense < Expense
 	def self.create_for_user(user,params = {})
 		new_expense = new
 		new_expense.expense_type = ExpenseType.find_or_create_for_user(user,params[:type])
+		new_expense.title = params[:type]
 		new_expense.description = params[:description]
 		new_expense.total_spends = params[:spends]
 		new_expense.owner = user

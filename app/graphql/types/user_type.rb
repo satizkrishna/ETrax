@@ -10,5 +10,7 @@ Types::UserType = GraphQL::ObjectType.define do
 	field :current_cycle, Types::MonthlyCycleType
 	field :past_cycles, types[Types::MonthlyCycleType]
 	field :shared_cycles, types[Types::SharedCycleType]
+	interfaces [Types::Interfaces::TimeStampInterface]
+
 
 end

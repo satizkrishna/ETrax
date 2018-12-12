@@ -15,5 +15,6 @@ Types::SharedExpenseType = GraphQL::ObjectType.define do
 	field :my_spend, types.Float
 	field :my_diff_spend, types.Float
 	field :shares, types[Types::SharesType]
+	interfaces [Types::Interfaces::TimeStampInterface]
 
 end

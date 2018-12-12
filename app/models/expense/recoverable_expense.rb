@@ -12,6 +12,7 @@ class Expense::RecoverableExpense < Expense
 	def self.create_for_user(user,params = {})
 		new_expense = new
 		new_expense.expense_type = ExpenseType.find_or_create_for_user(user,params[:type])
+		new_expense.title = params[:type]
 		new_expense.description = params[:description] || "a shared expense"
 		new_expense.owner = User.find(params[:paid_by][:user_id])
 		new_expense.cycle = ExpenseCycle::SharedExpenseCycle.find(params[:cycle_id])
@@ -23,7 +24,7 @@ class Expense::RecoverableExpense < Expense
 			new_expense.expected_spends = params[:spends] - params[:shareSplit][params[:paid_by][:user_id]]
 			raise ArgumentError if params[:shareSplit].values.reduce(0,:+) != params[:spends]
 		end
-		new_expense.save	
+		new_expense.save
 		params[:participants].pluck(:user_id).uniq.each{|prtcp_id|
 			next if prtcp_id == params[:paid_by][:user_id]
 			Expense::PendingExpense.create(
@@ -33,7 +34,8 @@ class Expense::RecoverableExpense < Expense
 					:owner => User.find(prtcp_id),
 					:total_spends => params[:spends],
 					:expected_spends => (params[:shareSplitType] == "Equal") ? new_expense.total_spends : params[:shareSplit][prtcp_id],
-					:parent_id => new_expense.id
+					:parent_id => new_expense.id,
+					:title => new_expense.title
 				)
 		}
 		new_expense.update_owes

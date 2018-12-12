@@ -12,5 +12,6 @@ Types::SharedCycleType = GraphQL::ObjectType.define do
 	field :total_owe, types.Float
 	field :my_expenses, types[Types::SharedExpenseType]
 	field :shares, types[Types::SharesType]
+	interfaces [Types::Interfaces::TimeStampInterface]
 
 end

@@ -10,5 +10,6 @@ Types::MonthlyExpenseType = GraphQL::ObjectType.define do
 
 	field :type, Types::ExpenseTypesType
 	field :spends, types.Float
+	interfaces [Types::Interfaces::TimeStampInterface]
 
 end

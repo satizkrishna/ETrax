@@ -5,7 +5,9 @@ class @StaticPageHandler
 	@generateContent: (contentData) -> 
 		StaticPageHandler.content = contentData if contentData?
 		StaticPageHandler.render()
-	
+
+	@resetContent: ->
+		@content = null
 	
 	@fetchAndGenerateContent: (query = "",callback) ->
 		if query? && query != ""

@@ -1,6 +1,7 @@
 Types::MonthlyCycleType = GraphQL::ObjectType.define do
     name 'MonthlyCycle'
     description 'A Monthly cycle'
+	interfaces [Types::Interfaces::TimeStampInterface]
 
 	field :id, !types.Int
 	field :title, types.String
@@ -10,5 +11,6 @@ Types::MonthlyCycleType = GraphQL::ObjectType.define do
 
 	field :total_spend, types.Float
 	field :expenses, types[Types::MonthlyExpenseType]
+
 
 end
