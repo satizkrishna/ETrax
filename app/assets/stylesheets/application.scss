@@ -97,9 +97,9 @@ input[type="button"]::-moz-focus-inner {
 body {
   background: #9CECFB;
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+  background: -webkit-linear-gradient(to right, #97749E, #F9A4A4, #D9B3F2);
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+  background: linear-gradient(to right, #97749E, #F9A4A4, #D9B3F2);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -191,4 +191,47 @@ body {
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+ul.timeline:before {
+    content: ' ';
+    background: #d4d9df;
+    display: inline-block;
+    position: absolute;
+    left: 29px;
+    width: 2px;
+    height: 100%;
+    z-index: 400;
+}
+ul.timeline > li {
+    margin: 20px 0;
+    padding-left: 20px;
+}
+ul.timeline > li:before {
+    content: ' ';
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #000;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+.mnth-timeline-a{
+  color: #270B3A;
+}
+.mnth-timeline-a:hover{
+  color: #910707;
+}
+.mnth-timeline-sp{
+  color: #7A0F1F;
+}
+.mnth-timeline-desc{
+  color: #923A47;
+  font-size: smaller;
 }

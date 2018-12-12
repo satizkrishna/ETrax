@@ -8,7 +8,7 @@ class @MonthlyCycles extends StaticPageHandler
 		console.log contentData
 		for cycle,data of contentData
 			console.log data
-			final_html += "<li class='list-group-item px-0'><a class='btn collapsed' data-toggle='collapse' href=#{'#cycleList' + data['id']} role='button' aria-expanded='true' aria-controls=#{'cycleList' + data['id']}>#{data['title']}<span class='mr-3'></span></a><div class='collapse' id=#{'cycleList' + data['id']}><div class='card card-body mt-2'>#{data['description']}</div></div></li>"
+			final_html += "<li><a class='mnth-timeline-a' href=#{'#monthly_cycle/'+data['id']} onclick='return Router.handlePath(this)'>#{data['title']}</a><p class='mnth-timeline-sp'>Spends: #{data['total_spend']}</p><p class='mnth-timeline-desc'>#{data['description']}</p></li>"
 		return final_html
 
 	@generateContent: (contentData) -> 
@@ -20,8 +20,9 @@ class @MonthlyCycles extends StaticPageHandler
 				reqData.push pastCycle
 		console.log reqData
 		cyclesListHtml = MonthlyCycles.getCycleList(reqData)
-		pageContent = '<div class="container"><div class="row"><div class="col"><div class="my-5"><ul class="list-group list-group-flush">' + cyclesListHtml + '</ul></div></div></div></div>'
+		pageContent = '<div class="container mt-5 mb-5"><div class="row"><div class="col-md-6 offset-md-3"><h4>Your Monthly Cycles</h4><ul class="timeline">' + cyclesListHtml + '</ul></div></div></div>'
 		super(pageContent) if pageContent?
 
 	@handle: (params = []) ->
 		MonthlyCycles.fetchAndGenerateContent(@query,MonthlyCycles.generateContent)
+

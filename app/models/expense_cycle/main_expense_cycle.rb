@@ -43,7 +43,7 @@ class ExpenseCycle::MainExpenseCycle < ExpenseCycle
 	end
 
 	def self.get_all_cycles(user,options = {})
-		result = user.monthly_expense_cycles.inactive
+		result = user.monthly_expense_cycles.inactive.order(id: :desc)
 		if options[:cycle_id]
 			result = result.find(options[:cycle_id])
 		end
