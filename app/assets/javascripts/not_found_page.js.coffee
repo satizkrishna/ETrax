@@ -3,3 +3,4 @@ class @NotFoundPage
 
 	@handle: ->
 		alert("NotFoundPage")
+		return false

@@ -4,8 +4,8 @@ class @AppRoutes
 
 	@rawPaths = 
 		"home": 	HomePage
-		"monthly_cycle":	MonthlyCycle
-		"shared_cycle":	SharedCycle
+		"monthly_cycle":	MonthlyCycles
+		"shared_cycle":	SharedCycles
 		"monthly_cycle/:id":	MonthlyCycle
 		"shared_cycle/:id":	SharedCycle
 		"expense_profile":	ExpenseProfile

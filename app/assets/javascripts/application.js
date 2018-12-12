@@ -15,7 +15,9 @@
 //= require jquery3
 //= require popper
 //= require home_page
+//= require monthly_cycles
 //= require monthly_cycle
+//= require shared_cycles
 //= require shared_cycle
 //= require expense_profile
 //= require about
