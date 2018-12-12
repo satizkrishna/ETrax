@@ -17,7 +17,7 @@ class @StaticPageHandler
 				return
 			$.ajax
 				method: 'post'
-				url: 'http://localhost:3000/graphql?'
+				url: '/graphql?'
 				data: JSON.stringify({query: query})
 				beforeSend: token,
 				headers:
